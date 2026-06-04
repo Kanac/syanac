@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Syanac — Fun, Amazing, Engaging Apps & Games</title>
+<meta name="description" content="Syanac is a mobile studio crafting fun, amazing, and deeply engaging apps and games for iOS and Android." />
+<link rel="icon" href="assets/idle-kingdom-tycoon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#080611; --bg2:#0e0a1f; --card:#15102b;
+    --txt:#e9e6f5; --muted:#a39fc0;
+    --p1:#7c3aed; --p2:#ec4899; --p3:#22d3ee; --gold:#f5c842;
+    --ring:rgba(124,58,237,.4);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);overflow-x:hidden;line-height:1.6}
+  h1,h2,h3,.logo{font-family:'Sora',sans-serif;letter-spacing:-.02em}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+
+  /* animated background blobs */
+  .blob{position:fixed;border-radius:50%;filter:blur(90px);opacity:.5;z-index:0;pointer-events:none}
+  .b1{width:480px;height:480px;background:var(--p1);top:-120px;left:-100px;animation:float1 18s ease-in-out infinite}
+  .b2{width:420px;height:420px;background:var(--p2);top:20%;right:-140px;animation:float2 22s ease-in-out infinite}
+  .b3{width:380px;height:380px;background:var(--p3);bottom:-120px;left:30%;opacity:.3;animation:float1 26s ease-in-out infinite}
+  @keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,-50px)}}
+  @keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(-50px,40px)}}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(8,6,17,.6);border-bottom:1px solid rgba(255,255,255,.06)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{font-size:1.5rem;font-weight:800;display:flex;align-items:center;gap:10px}
+  .logo .dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--p2),var(--p3));box-shadow:0 0 18px var(--p2)}
+  .navlinks{display:flex;gap:30px;font-size:.95rem;font-weight:500}
+  .navlinks a{color:var(--muted);transition:color .2s}
+  .navlinks a:hover{color:var(--txt)}
+  .btn{display:inline-block;padding:12px 26px;border-radius:999px;font-weight:600;font-family:'Sora';font-size:.95rem;
+       background:linear-gradient(135deg,var(--p1),var(--p2));color:#fff;box-shadow:0 8px 30px var(--ring);transition:transform .2s,box-shadow .2s}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 40px var(--ring)}
+  .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,.18);box-shadow:none}
+
+  /* hero */
+  header{position:relative;z-index:1;padding:110px 0 90px;text-align:center}
+  .tagpill{display:inline-block;padding:7px 16px;border-radius:999px;background:rgba(124,58,237,.14);border:1px solid var(--ring);
+           color:#c9b6ff;font-size:.82rem;font-weight:600;margin-bottom:26px}
+  header h1{font-size:clamp(2.6rem,7vw,5rem);font-weight:800;line-height:1.05;margin-bottom:22px}
+  .grad{background:linear-gradient(120deg,var(--p3),var(--p1) 45%,var(--p2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  header p.sub{font-size:clamp(1.05rem,2.2vw,1.35rem);color:var(--muted);max-width:620px;margin:0 auto 38px}
+  .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+  /* stats */
+  .stats{display:flex;gap:50px;justify-content:center;flex-wrap:wrap;margin-top:70px}
+  .stat .n{font-family:'Sora';font-size:2.4rem;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--p2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat .l{color:var(--muted);font-size:.9rem}
+
+  /* sections */
+  section{position:relative;z-index:1;padding:80px 0}
+  .eyebrow{color:var(--p2);font-weight:700;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
+  h2{font-size:clamp(1.9rem,4vw,2.8rem);font-weight:800;margin-bottom:16px}
+  .lead{color:var(--muted);max-width:620px;font-size:1.08rem}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;margin-top:48px}
+  .card{background:var(--card);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:30px;transition:transform .25s,border-color .25s}
+  .card:hover{transform:translateY(-6px);border-color:var(--ring)}
+  .card .ico{width:54px;height:54px;border-radius:14px;display:grid;place-items:center;font-size:1.7rem;margin-bottom:18px;
+             background:linear-gradient(135deg,rgba(124,58,237,.25),rgba(236,72,153,.2))}
+  .card h3{font-size:1.25rem;margin-bottom:10px}
+  .card p{color:var(--muted);font-size:.97rem}
+
+  /* featured game */
+  .featured{background:linear-gradient(135deg,rgba(124,58,237,.12),rgba(34,211,238,.06));border:1px solid rgba(255,255,255,.08);
+            border-radius:28px;padding:48px;display:flex;gap:48px;align-items:center;flex-wrap:wrap;margin-top:48px}
+  .featured img.icon{width:140px;height:140px;border-radius:30px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+  .featured .info{flex:1;min-width:260px}
+  .featured h3{font-size:2rem;margin-bottom:8px}
+  .badge{display:inline-block;background:rgba(245,200,66,.16);color:var(--gold);border:1px solid rgba(245,200,66,.3);
+         padding:5px 12px;border-radius:999px;font-size:.78rem;font-weight:700;margin-bottom:16px}
+  .featured p{color:var(--muted);margin-bottom:22px}
+  .feat-tags{display:flex;gap:10px;flex-wrap:wrap}
+  .feat-tags span{background:rgba(255,255,255,.06);padding:6px 14px;border-radius:999px;font-size:.82rem;color:#cfc9ea}
+
+  /* about */
+  .about{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  @media(max-width:760px){.about{grid-template-columns:1fr}}
+  .about .panel{background:var(--card);border:1px solid rgba(255,255,255,.07);border-radius:24px;padding:40px}
+  .about ul{list-style:none;margin-top:20px}
+  .about li{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;color:var(--muted)}
+  .about li::before{content:'◆';color:var(--p2);font-size:.8rem;margin-top:4px}
+
+  /* contact */
+  .contact{text-align:center;background:linear-gradient(135deg,rgba(236,72,153,.12),rgba(124,58,237,.1));
+           border:1px solid rgba(255,255,255,.08);border-radius:28px;padding:64px 32px;margin:0 24px}
+  .contact h2{margin-bottom:14px}
+  .contact p{color:var(--muted);margin-bottom:30px}
+
+  footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.07);margin-top:80px;padding:36px 0;color:var(--muted);font-size:.9rem}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  footer a{color:var(--muted);transition:color .2s}
+  footer a:hover{color:var(--txt)}
+
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
+  .reveal.in{opacity:1;transform:none}
+  @media(max-width:680px){.navlinks{display:none}}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+
+<nav>
+  <div class="wrap">
+    <div class="logo"><span class="dot"></span>Syanac</div>
+    <div class="navlinks">
+      <a href="#games">Games</a>
+      <a href="#values">What We Do</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#contact" class="btn">Get in touch</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <span class="tagpill">🎮 A mobile games & apps studio</span>
+    <h1>We make <span class="grad">fun, amazing</span><br/>& engaging experiences</h1>
+    <p class="sub">Syanac crafts delightful mobile games and apps that people genuinely love to open — every single day.</p>
+    <div class="cta">
+      <a href="#games" class="btn">Explore our games</a>
+      <a href="#about" class="btn ghost">About the studio</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="n">iOS + Android</div><div class="l">Built for both</div></div>
+      <div class="stat"><div class="n">Engagement-first</div><div class="l">Designed to delight</div></div>
+      <div class="stat"><div class="n">Indie-crafted</div><div class="l">Made with care</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="values">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">What we do</div>
+      <h2>Small studio. Big delight.</h2>
+      <p class="lead">We focus on a simple idea: build mobile experiences so fun and rewarding that they earn a spot on your home screen.</p>
+    </div>
+    <div class="grid">
+      <div class="card reveal"><div class="ico">🎮</div><h3>Games that hook</h3><p>Addictive, satisfying gameplay loops with progression that keeps players coming back for "just one more."</p></div>
+      <div class="card reveal"><div class="ico">✨</div><h3>Polished design</h3><p>Clean, characterful visuals and smooth feel. Every tap, sound, and animation is crafted to feel great.</p></div>
+      <div class="card reveal"><div class="ico">📱</div><h3>Cross-platform</h3><p>One studio, both stores. We ship to iOS and Android so everyone can play, wherever they are.</p></div>
+      <div class="card reveal"><div class="ico">🚀</div><h3>Always improving</h3><p>We listen, iterate, and ship. Our apps keep getting better with fresh content and features.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="games">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Featured</div>
+      <h2>Our games</h2>
+      <p class="lead">Worlds worth returning to.</p>
+    </div>
+    <div class="featured reveal">
+      <img class="icon" src="assets/idle-kingdom-tycoon.png" alt="Idle Kingdom Tycoon" />
+      <div class="info">
+        <span class="badge">👑 NEW · COMING SOON</span>
+        <h3>Idle Kingdom Tycoon</h3>
+        <p>Build a medieval empire that mints gold while you sleep. Tap, upgrade, prestige, and rule a kingdom that grows even when you're away. A cozy, endlessly satisfying idle adventure.</p>
+        <div class="feat-tags"><span>Idle / Incremental</span><span>Medieval</span><span>Offline earnings</span><span>Free to play</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about">
+    <div class="reveal">
+      <div class="eyebrow">About</div>
+      <h2>The studio</h2>
+      <p class="lead">Syanac is an independent mobile studio on a mission to make the most fun, amazing, and engaging apps and games on your phone — built with craft, shipped with heart.</p>
+    </div>
+    <div class="panel reveal">
+      <h3>What we believe</h3>
+      <ul>
+        <li>Fun comes first — if it isn't delightful, it isn't done.</li>
+        <li>Respect players' time with fair, rewarding design.</li>
+        <li>Polish matters: the little details make the magic.</li>
+        <li>Ship, listen, improve — forever.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="contact reveal" id="contact">
+    <div class="eyebrow">Get in touch</div>
+    <h2>Let's build something fun</h2>
+    <p>Press, partnerships, or just want to say hi? We'd love to hear from you.</p>
+    <a href="mailto:ac.anthony.chui@gmail.com" class="btn">Email us</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="logo" style="font-size:1.2rem"><span class="dot"></span>Syanac</div>
+    <div>© <span id="yr"></span> Syanac. Crafting fun, amazing, engaging experiences.</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  const io = new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
